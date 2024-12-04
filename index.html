@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Board</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    .board {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .post {
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+    }
+    .post:last-child {
+      border-bottom: none;
+    }
+    .post-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .post-content {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+    .no-posts {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+    }
+    #more {
+      margin-top: 50px;
+      border: #333;
+      background-color: inherit;
+      font-size: 20px;
+      font-style: italic;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="board">
+    <h2>Simple Board</h2>
+    <div id="posts-container">
+      <p class="no-posts">No posts to display.</p>
+    </div>
+    <button id="more">
+      more
+    </button>
+  </div>
+  <script type="module" src="app.js" ></script>
+</body>
+</html>
