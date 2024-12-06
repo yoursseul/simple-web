@@ -60,7 +60,7 @@ api를 통해 받아온 데이터는 아래와 같습니다.
 <br/>
 <br/>
 
-f. RDS 연결
+f. 로컬 MYSQL DB 연결
 <br/>
 이때 하나의 테이블을 생성해주고 이 테이블은 title, author, description, content 칼럼을 지닙니다.
 <br/>
