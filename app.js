@@ -1,54 +1,47 @@
 // 게시글 데이터 (하드코딩된 데이터)
-const posts = [
-  { title: "First Post", abstract: "This is the first post on this board." },
-  { title: "Second Post", abstract: "Here's a sample post to show how this works." },
-  { title: "Third Post", abstract: "You can add more posts by editing the data array in the script." }
-];
+//const posts = [
+//  { title: "First Post", abstract: "This is the first post on this board." },
+//  { title: "Second Post", abstract: "Here's a sample post to show how this works." },
+//  { title: "Third Post", abstract: "You can add more posts by editing the data array in the script." }
+//];
 
 let day = 1;
+
 // api 호출 메서드
 async function fetchData() {
-  
-  // day가 한자리 수 인 경우 "0"을 붙여준다
-  day = day < 10 ? `0${day}`: day;
-  const formattedDate = `2024-12-${day}`;
-  // 마지막 부분에 API_KEY를 발급받고 입력해주세요
-  const url = `https://newsapi.org/v2/everything?q=USA&from=${formattedDate}&sortBy=popularity&apiKey=${API_KEY}`;
   try {
-    const response = await fetch(url);
+    // 백엔드 API에서 데이터를 가져옴
+    const response = await fetch('http://localhost:8000/api/list/');  // 백엔드 API 호출
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error('Failed to fetch data');
     }
-    return response.json(); // JSON 응답 처리
+    const data = await response.json();  // 서버에서 받은 JSON 데이터
+    return data;
   } catch (error) {
-    console.error("Error fetching data:", error); // 에러 처리
+    console.error("Error fetching data:", error);  // 에러 처리
   }
 }
 
 // 게시글 렌더링 함수
 async function renderPosts() {
-  // api 호출 결과
-  // const response = await fetchData();
-  // const articles = response.articles;
-  // articles.map( article => posts.push(article));
-
   const container = document.getElementById("posts-container");
-  container.innerHTML = ""; // 기존 내용을 초기화
-  
-  if (posts.length === 0) {
+  container.innerHTML = "";  // 기존 내용 초기화
+
+  const data = await fetchData();  // 백엔드 API에서 데이터 가져오기
+  if (!data || data.length === 0) {
     container.innerHTML = '<p class="no-posts">No posts to display.</p>';
     return;
   }
-  
-  posts.forEach(post => {
+
+  // 받은 기사 목록을 출력
+  data.forEach(post => {
     const postElement = document.createElement("div");
     postElement.className = "post";
-    
+
     postElement.innerHTML = `
       <div class="post-title">${post.title}</div>
-      <div class="post-content">${post.abstract}</div>
+      <div class="post-content">${post.description}</div>
     `;
-    
     container.appendChild(postElement);
   });
 }
